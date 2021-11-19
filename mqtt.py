@@ -3,6 +3,9 @@ import time
 import threading
 
 class mqtt_publisher:
+    """
+    Class to operate with MQTT protocol
+    """
     msg = None
 
     def __init__(self,
@@ -28,8 +31,6 @@ class mqtt_publisher:
         self.client.on_message = self.on_message
         self.client.on_publish = self.on_publish
         self.client.on_disconnect = self.on_disconnect
-        #self.client.ws_set_options()
-        #self.client.tls_set()
         self.client.connect(server, port, 60)
         self.client.connected_flag = False
         while not self.client.is_connected():  # wait in loop
@@ -40,16 +41,22 @@ class mqtt_publisher:
                 break
             print('not connected')
 
-        self._poll = threading.Thread(target=self._pooling)
+        self._poll = threading.Thread(target=self._polling)
         self._poll.start()
 
     def get_msg(self):
+        """
+        Get MQTT response and clean response container
+        @return object
+        """
         msg = self.msg
         self.msg = None
         return msg
 
-    def _pooling(self):
-
+    def _polling(self):
+        """
+        Threaded poller, Test if connection established and restart it
+        """
         try:
             while True:
                 time.sleep(1)
@@ -59,10 +66,16 @@ class mqtt_publisher:
             pass
 
     def connect(self):
+        """
+        Connect to server
+        """
         self.client.disconnect()
         self.client.connect(self.server, self.port, 60)
 
     def on_connect(self, client, userdata, flags, rc):
+        """
+        Callback
+        """
         print(userdata, flags,"Connected with result code " + str(rc))
 
         if rc == 0:
@@ -74,13 +87,22 @@ class mqtt_publisher:
         # handle error here
 
     def on_message(self, client, userdata, msg):
+        """
+        Callback
+        """
         print(msg.topic + " *** " + str(msg.payload))
         self.msg = msg
 
     def on_publish(self, userdata, result, mid):  # create function for callback
+        """
+        Callback
+        """
         print("data published \n",userdata, result)
         pass
 
     def on_disconnect(self, userdata, rc):
+        """
+        Callback
+        """
         print("client disconnected ok")
 

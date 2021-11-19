@@ -1,13 +1,15 @@
 import RPi.GPIO as GPIO
 import time
+
 channel = [26, 20, 21]
 Relay_Ch1 = channel[0]
 Relay_Ch2 = channel[1]
 Relay_Ch3 = channel[2]
 
+
 class Relay:
     """
-    class for working with lock
+    Class for working with lock
     """
     status = None
 
@@ -25,7 +27,7 @@ class Relay:
                 time.sleep(0.5)
                 print("Channel ", ch, ":The Common Contact is access to the Normal Closed Contact!\n")
                 GPIO.output(ch, GPIO.HIGH)
-            #threading.Thread(target=self.lock_pooling).start()
+
         except Exception as e:
             print('relay init', e)
             self.__exit__()
@@ -37,7 +39,10 @@ class Relay:
         self.status = None
         GPIO.cleanup()
 
-    def lock(self,ch_number):
+    def lock(self, ch_number: int = 0):
+        """
+        Switch on/switch off lock by channel number
+        """
         print(channel[ch_number])
         GPIO.output(channel[ch_number], GPIO.LOW)
         self.status = True
