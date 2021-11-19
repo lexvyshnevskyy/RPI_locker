@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="mqttClient">
+    <option name="connectionConfigurations">
+      <list>
+        <ConnectionConfiguration>
+          <option name="clientId" value="SN1234567890" />
+          <option name="host" value="13.82.45.48" />
+          <option name="id" value="13.82.45.48:1883@SN1234567890" />
+          <option name="lastWillTopic" value="" />
+          <option name="name" value="jsp" />
+          <option name="port" value="1883" />
+          <option name="username" value="drone" />
+          <option name="lastWillPayload" value="" />
+        </ConnectionConfiguration>
+      </list>
+    </option>
+    <option name="subscribeConfigurations">
+      <list>
+        <SubscribeMessage>
+          <option name="alias" value="" />
+          <option name="connectionId" value="13.82.45.48:1883@mqtt_yqp9w8wr" />
+          <option name="topic" value="test" />
+        </SubscribeMessage>
+        <SubscribeMessage>
+          <option name="alias" value="" />
+          <option name="connectionId" value="13.82.45.48:1883@SN1234567890" />
+          <option name="topic" value="Lock/status" />
+        </SubscribeMessage>
+      </list>
+    </option>
+  </component>
+</project>
